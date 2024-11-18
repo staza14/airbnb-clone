@@ -1,6 +1,7 @@
 source "https://rubygems.org"
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
-
+gem "ffi", "< 1.17.0"
+gem 'rubygems-update', '>= 3.3.22'
 ruby "3.1.2"
 gem "devise"
 gem "pg_search"
