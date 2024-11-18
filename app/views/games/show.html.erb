@@ -1,0 +1,17 @@
+<h1><%= @game.name  %></h1>
+  <div data-controller="toggle" class="container">
+    <button data-action="click->toggle#fire" class="p-3 m-5"><strong>Book this game?</strong></button>
+      <div data-toggle-target="togglableElement" class="d-none mx-5">
+        <%= simple_form_for([@game, @booking])  do |f| %>
+        <%= f.input :start_date,
+            as: :string,
+            input_html: { data: { controller: "datepicker" } } %>
+        <%= f.input :end_date,
+            as: :string,
+            input_html: { data: { controller: "datepicker" } } %>
+        <%= f.submit %>
+        <% end %>
+      </div>
+  </div>
+
+<%= link_to "Go back to all games", games_path %>

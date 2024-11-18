@@ -1,0 +1,80 @@
+<h1>Hi <%= current_user.first_name %></h1>
+
+<div>
+  <h2>Here are your listings:</h2>
+  <%= link_to "Add a new listing", new_game_path %>
+  <ul>
+    <% @games.each do |game| %>
+      <li>
+        <%= game.name %> |
+        <%= game.price %> |
+        <%= link_to game_path(game), data: {turbo_method: :delete, turbo_confirm: "Are you sure?"} do %>
+          <i class="fa-solid fa-trash"></i>
+        <% end %>
+      </li>
+    <% end %>
+  </ul>
+  <% if @requests.size > 0 %>
+    <h3>These requests are waiting to be approved:</h3>
+      <ul>
+    <% @requests.each do |request| %>
+      <li>
+              <!-- Button trigger modal -->
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+          <%=request.game.name %> |
+          <%= request.user.first_name %>
+        </button>
+
+        <!-- Modal -->
+        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                ...
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Save changes</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </li>
+    <% end %>
+  </ul>
+  <% end %>
+</div>
+
+<div>
+  <h2>Here are your Bookings:</h2>
+  <h3>Pending:</h3>
+  <ul>
+    <% @pending_bookings.each do |booking| %>
+      <li>
+        <%= booking.game.name %> |
+        <%= booking.start_date %> to <%= booking.end_date %> |
+        <%= link_to booking_path(booking), data: {turbo_method: :delete, turbo_confirm: "Are you sure?"} do %>
+        <i class="fa-solid fa-trash"></i>
+        <% end %>
+      </li>
+    <% end %>
+  </ul>
+  <h3>Approved:</h3>
+    <ul>
+    <% @approved_bookings.each do |booking| %>
+      <li>
+        <%= booking.game.name %> |
+        <%= booking.start_date %> to <%= booking.end_date %> |
+        <%= link_to booking_path(booking), data: {turbo_method: :delete, turbo_confirm: "Are you sure?"} do %>
+        <i class="fa-solid fa-trash"></i>
+        <% end %>
+      </li>
+    <% end %>
+  </ul>
+</div>
